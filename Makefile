@@ -40,6 +40,14 @@ all: clean
 	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/libvdpau-1.1.1-7.el8.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
+	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/libjpeg-turbo-1.5.3-10.el8.x86_64.rpm
+	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
+
+	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/SDL-1.2.15-37.el8.x86_64.rpm
+	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
+
+
+
 	cp -r --force $(PWD)/AppDir $(PWD)/build
 	cp -r --force $(PWD)/build/usr/* $(PWD)/build/AppDir
 
