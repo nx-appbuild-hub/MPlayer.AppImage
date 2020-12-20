@@ -14,45 +14,20 @@ DESTINATION="MPlayer.AppImage"
 
 all: clean
 
-	mkdir --parents $(PWD)/build
+	mkdir --parents $(PWD)/build/Mplayer.AppDir/xmind
+	apprepo --destination=$(PWD)/build appdir mplayer mencoder mplayer-doc mplayer-gui vdr-plugin-mplayer vdr-plugin-streamdev-client vdr-plugin-streamdev-server mplayer-skins mplayer-skin-blue
 
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm https://download1.rpmfusion.org/free/el/updates/8/x86_64/m/mplayer-1.4-9.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
+	rm --force $(PWD)/build/Mplayer.AppDir/*.desktop 				| true
+	rm --force $(PWD)/build/Mplayer.AppDir/*.svg 					| true
+	rm --force $(PWD)/build/Mplayer.AppDir/*.png					| true
 
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm https://download1.rpmfusion.org/free/el/updates/8/x86_64/m/mplayer-gui-1.4-9.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
+	cp --force $(PWD)/AppDir/*.desktop $(PWD)/build/Mplayer.AppDir/	| true
+	cp --force $(PWD)/AppDir/*.png $(PWD)/build/Mplayer.AppDir/ 	| true
+	cp --force $(PWD)/AppDir/*.svg $(PWD)/build/Mplayer.AppDir/ 	| true
 
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm https://download1.rpmfusion.org/free/el/updates/8/x86_64/m/mplayer-tools-1.4-9.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
+	echo "exec \$${APPDIR}/bin/gmplayer \"\$${@}\"" >> $(PWD)/build/Mplayer.AppDir/AppRun
 
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/libdvdread-5.0.3-9.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/PowerTools/x86_64/os/Packages/enca-1.19-1.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm https://download1.rpmfusion.org/free/el/updates/8/x86_64/x/x264-libs-0.157-12.20190717git34c06d1.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/l/lirc-libs-0.10.0-19.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/libvdpau-1.1.1-7.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/libjpeg-turbo-1.5.3-10.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-	wget --no-check-certificate --output-document=$(PWD)/build/build.rpm http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/SDL-1.2.15-37.el8.x86_64.rpm
-	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
-
-
-
-	cp -r --force $(PWD)/AppDir $(PWD)/build
-	cp -r --force $(PWD)/build/usr/* $(PWD)/build/AppDir
-
-	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage  $(PWD)/build/AppDir $(PWD)/MPlayer.AppImage
-	make clean
+	export ARCH=x86_64 && $(PWD)/bin/appimagetool.AppImage  $(PWD)/build/Mplayer.AppDir $(PWD)/MPlayer.AppImage
 
 
 clean:
