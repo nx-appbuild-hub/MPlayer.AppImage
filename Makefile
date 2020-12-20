@@ -14,7 +14,7 @@ DESTINATION="MPlayer.AppImage"
 
 all: clean
 
-	mkdir --parents $(PWD)/build/Mplayer.AppDir/xmind
+	mkdir --parents $(PWD)/build/Mplayer.AppDir
 	apprepo --destination=$(PWD)/build appdir mplayer mencoder mplayer-doc mplayer-gui vdr-plugin-mplayer vdr-plugin-streamdev-client vdr-plugin-streamdev-server mplayer-skins mplayer-skin-blue
 
 	rm --force $(PWD)/build/Mplayer.AppDir/*.desktop 				| true
